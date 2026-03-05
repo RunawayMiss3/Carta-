@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -10,20 +10,6 @@ body{
   background:black;
   color:white;
   overflow:hidden;
-}
-
-/* carta */
-#carta{
-  display:none;
-  max-width:700px;
-  margin:auto;
-  margin-top:5vh;
-  background:rgba(0,0,0,0.85);
-  padding:40px;
-  border-radius:15px;
-  line-height:1.7;
-  position:relative;
-  z-index:1;
 }
 
 /* pantalla inicial */
@@ -60,7 +46,21 @@ body{
   position:relative;
 }
 
-/* estrellas fugaces */
+/* carta */
+#carta{
+  display:none;
+  max-width:700px;
+  margin:auto;
+  margin-top:5vh;
+  background:rgba(0,0,0,0.85);
+  padding:40px;
+  border-radius:15px;
+  line-height:1.7;
+  position:relative;
+  z-index:1;
+}
+
+/* estrellas fugaces blancas */
 .shooting-star{
   position:fixed;
   background:white;
@@ -69,6 +69,23 @@ body{
   z-index:0;
   opacity:0;
   transform:translate(0,0);
+}
+
+/* estrellas amarillas (easter egg) */
+.star-yellow{
+  position:absolute;
+  background:yellow;
+  border-radius:50%;
+  width:4px;
+  height:4px;
+  opacity:0.8;
+  pointer-events:none;
+  animation:blink 2s infinite alternate;
+}
+
+@keyframes blink{
+  from{opacity:0.3;}
+  to{opacity:1;}
 }
 
 /* mensaje final */
@@ -85,7 +102,7 @@ body{
 
 <div id="inicio">
   <div class="envelope"></div>
-  <h1>✨ Tengo algo para ti ✨</h1>
+  <h1>✨ Un mensaje desde mi universo para ti ✨</h1>
   <p>Hay algo que quiero que leas con calma.</p>
   <button id="abrirBtn">Abrir carta 💌</button>
 </div>
@@ -118,7 +135,7 @@ body{
 </div>
 
 <script>
-// ---- FUNCIONES ESTRELLAS ----
+// -------- ESTRELLAS FUGACES --------
 function createShootingStar(long = false, topPos = null, leftPos = null){
   const star = document.createElement("div");
   star.className = "shooting-star";
@@ -150,41 +167,43 @@ function createShootingStar(long = false, topPos = null, leftPos = null){
   setTimeout(()=>star.remove(), duration*1000 + 100);
 }
 
-// lluvia inicial mientras no se abre la carta
+// estrellas iniciales mientras no abre carta
 function preOpenStars(){
   createShootingStar();
   setTimeout(preOpenStars, 1000 + Math.random()*1500);
 }
 preOpenStars();
 
-// función para lanzar lluvia de estrellas al abrir la carta
+// lluvia de estrellas al abrir carta + easter egg
 function meteorShowerPremium(){
-  // muchas estrellas fugaces simultáneas
   const count = 15 + Math.floor(Math.random()*10);
   for(let i=0;i<count;i++){
     setTimeout(createShootingStar, i*100);
   }
 
-  // Easter egg: formar "GISELE"
+  // Easter egg: letras GISELE con estrellas amarillas
   const letters = ["G","I","S","E","L","E"];
+  const startTop = 10; // empezar desde 10vh
+  const startLeft = 50; // empezar desde 50px
   letters.forEach((letter, idx)=>{
-    // coordenadas aproximadas para que queden dentro de la carta
-    const top = 10 + idx*8;
-    const left = 50 + Math.random()*20;
-    createShootingStar(true, top, left);
+    const star = document.createElement("div");
+    star.className = "star-yellow";
+    star.style.top = (startTop + idx*6) + "vh";
+    star.style.left = (startLeft + idx*12) + "px";
+    document.getElementById("carta").appendChild(star);
   });
 
   setTimeout(meteorShowerPremium, 4000 + Math.random()*2000);
 }
 
-// ---- ABRIR CARTA ----
+// abrir carta instantáneo
 document.getElementById("abrirBtn").addEventListener("click", function(){
   document.getElementById("inicio").style.display="none";
   document.getElementById("carta").style.display="block";
   setTimeout(()=>{
     document.getElementById("mensajeFinal").style.display="block";
   },10000);
-  meteorShowerPremium(); // iniciar lluvia intensiva con Easter egg
+  meteorShowerPremium();
 });
 </script>
 
