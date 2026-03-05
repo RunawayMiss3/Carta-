@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Una carta para ti</title>
+
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at bottom,#0d1b2a,#000);
+    font-family: "Georgia", serif;
+    color:white;
+    overflow:hidden;
+}
+
+/* Estrellas */
+
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:transparent;
+}
+
+.stars::after{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    box-shadow:
+    200px 300px white,
+    500px 200px white,
+    800px 400px white,
+    1200px 150px white,
+    100px 500px white,
+    700px 600px white,
+    400px 700px white,
+    900px 300px white,
+    1300px 500px white;
+    animation: twinkle 4s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:0.3;}
+    to{opacity:1;}
+}
+
+/* Carta */
+
+.card{
+    background:rgba(0,0,0,0.6);
+    padding:45px;
+    border-radius:20px;
+    max-width:650px;
+    line-height:1.8;
+    backdrop-filter:blur(6px);
+    box-shadow:0 0 30px rgba(255,255,255,0.2);
+    animation: aparecer 2s ease;
+}
+
+@keyframes aparecer{
+    from{opacity:0; transform:translateY(30px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+    text-align:center;
+    letter-spacing:2px;
+    margin-bottom:25px;
+}
+
+p{
+    margin-bottom:18px;
+}
+
+.frase{
+    text-align:center;
+    font-style:italic;
+    opacity:0.9;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="card">
+
+<h1>Para ti ✨</h1>
+
+<p>
+Le doy gracias al universo por haberte puesto en mi camino. Siempre me ha gustado mirar el espacio, las estrellas y pensar que el universo conecta a las personas de maneras curiosas. A veces siento que encontrarte fue un poco así, como una coincidencia bonita entre millones de caminos.
+</p>
+
+<p>
+Aunque todavía no hablamos tanto en persona ni por chat, cada conversación contigo se siente especial. Incluso si son solo pocos mensajes, de alguna forma logran quedarse en mi mente más tiempo del que imaginaba.
+</p>
+
+<p>
+También me gusta ver lo que compartes. Tienes un estilo muy bonito y una vibra que llama la atención. La verdad es que como influencer te la rifas, porque no solo son las fotos, también la energía que transmites.
+</p>
+
+<p>
+Dicen algunas canciones que cuando alguien llega a tu mente, simplemente no se va. Y a veces me pasa eso contigo.
+</p>
+
+<p class="frase">
+"Porque el cariño verdadero no se explica… solo se siente."
+</p>
+
+<p>
+Por eso me gusta la idea de seguir conociéndote poco a poco. A veces las mejores historias empiezan así, con pequeños mensajes que con el tiempo se vuelven momentos que uno recuerda mucho.
+</p>
+
+</div>
+
+</body>
+</html>
