@@ -5,7 +5,6 @@
 <title>Para ti ✨</title>
 
 <style>
-
 body{
 margin:0;
 font-family:Georgia, serif;
@@ -15,7 +14,6 @@ overflow:hidden;
 }
 
 /* estrellas */
-
 .stars{
 position:fixed;
 width:100%;
@@ -34,14 +32,12 @@ box-shadow:
 800px 420px white;
 animation:moveStars 60s linear infinite;
 }
-
 @keyframes moveStars{
 from{transform:translateY(0);}
 to{transform:translateY(-1000px);}
 }
 
 /* pantalla inicial */
-
 #inicio{
 height:100vh;
 display:flex;
@@ -52,7 +48,6 @@ text-align:center;
 }
 
 /* sobre */
-
 .envelope{
 width:200px;
 height:120px;
@@ -60,8 +55,8 @@ background:#ff4d6d;
 position:relative;
 border-radius:5px;
 margin-bottom:20px;
+transition:1s;
 }
-
 .envelope:before{
 content:'';
 position:absolute;
@@ -74,14 +69,12 @@ border-right:100px solid transparent;
 border-bottom:60px solid #ff4d6d;
 transition:1s;
 }
-
 .open .envelope:before{
 transform:rotateX(180deg);
 transform-origin:top;
 }
 
 /* botón */
-
 button{
 padding:15px 30px;
 font-size:20px;
@@ -92,13 +85,11 @@ color:white;
 cursor:pointer;
 transition:0.3s;
 }
-
 button:hover{
 transform:scale(1.1);
 }
 
 /* carta */
-
 #carta{
 display:none;
 max-width:700px;
@@ -110,14 +101,12 @@ border-radius:15px;
 line-height:1.7;
 animation:fade 2s;
 }
-
 @keyframes fade{
 from{opacity:0; transform:translateY(40px);}
 to{opacity:1; transform:translateY(0);}
 }
 
 /* estrella fugaz */
-
 .shooting-star{
 position:fixed;
 top:0;
@@ -128,16 +117,9 @@ background:white;
 box-shadow:0 0 10px white;
 animation:shoot 5s linear infinite;
 }
-
 @keyframes shoot{
-0%{
-transform:translate(0,0);
-opacity:1;
-}
-100%{
-transform:translate(1200px,600px);
-opacity:0;
-}
+0%{transform:translate(0,0);opacity:1;}
+100%{transform:translate(1200px,600px);opacity:0;}
 }
 
 </style>
@@ -155,7 +137,8 @@ opacity:0;
 <h1>✨ Tengo algo para ti ✨</h1>
 <p>Hay algo que quiero que leas con calma.</p>
 
-<button onclick="abrirCarta()">Abrir carta 💌</button>
+<!-- Botón seguro -->
+<button id="abrirBtn">Abrir carta 💌</button>
 
 </div>
 
@@ -193,23 +176,25 @@ Gracias por existir en mi universo.
 
 </div>
 
+<!-- Música -->
 <audio id="musica" loop>
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-piano-ambient-110997.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+// Opción segura para abrir carta
+document.getElementById("abrirBtn").addEventListener("click", function(){
+    // Animación del sobre
+    document.querySelector(".envelope").classList.add("open");
 
-function abrirCarta(){
+    // Mostrar carta
+    document.getElementById("inicio").style.display = "none";
+    document.getElementById("carta").style.display = "block";
 
-document.getElementById("inicio").style.display="none";
-document.getElementById("carta").style.display="block";
-
-const musica = document.getElementById("musica");
-
-musica.play().catch(()=>{});
-
-}
-
+    // Reproducir música
+    const musica = document.getElementById("musica");
+    musica.play().catch(()=>{});
+});
 </script>
 
 </body>
