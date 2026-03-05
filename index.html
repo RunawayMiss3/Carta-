@@ -133,7 +133,7 @@ body{
 <script>
 // -------- CREAR ESTRELLAS --------
 const totalWhite = 200;
-const totalYellow = 80;
+const totalYellow = 150; // muchas amarillas ahora
 const stars = [];
 
 // blancas
@@ -148,7 +148,7 @@ for(let i=0;i<totalWhite;i++){
   animateStar(star);
 }
 
-// amarillas (universo)
+// amarillas
 for(let i=0;i<totalYellow;i++){
   const star = document.createElement("div");
   star.className="star yellow";
@@ -185,21 +185,6 @@ document.getElementById("abrirBtn").addEventListener("click", function(){
   setTimeout(()=>{
     document.getElementById("mensajeFinal").style.display="block";
   },5000);
-});
-
-// Easter egg GISELE: dibujar letras discretamente
-const easterLetters = [
-  {top:20,left:30},{top:26,left:32},{top:32,left:34},{top:38,left:36},
-  {top:44,left:38},{top:50,left:40} // posiciones aproximadas
-];
-easterLetters.forEach(pos=>{
-  const star = document.createElement("div");
-  star.className="star yellow";
-  star.style.width=star.style.height="4px";
-  star.style.top=pos.top+"vh";
-  star.style.left=pos.left+"vw";
-  document.body.appendChild(star);
-  animateStar(star);
 });
 </script>
 
