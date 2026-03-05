@@ -5,120 +5,90 @@
 <title>Para ti ✨</title>
 <style>
 body{
-margin:0;
-font-family:Georgia, serif;
-background:black;
-color:white;
-overflow:hidden;
+  margin:0;
+  font-family:Georgia, serif;
+  background:black;
+  color:white;
+  overflow:hidden;
 }
 
-/* estrellas de fondo */
+/* fondo de estrellas estático */
 .stars{
-position:fixed;
-width:100%;
-height:100%;
-background:transparent;
-box-shadow:
-50px 80px white,
-120px 200px white,
-300px 150px white,
-500px 300px white,
-700px 100px white,
-900px 250px white,
-1100px 180px white,
-1300px 320px white,
-150px 400px white,
-800px 420px white;
-z-index:0;             /* Fondo detrás de todo */
-pointer-events: none;  /* No bloquea clics */
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  box-shadow:
+    50px 80px white,
+    120px 200px white,
+    300px 150px white,
+    500px 300px white,
+    700px 100px white,
+    900px 250px white,
+    1100px 180px white,
+    1300px 320px white,
+    150px 400px white,
+    800px 420px white;
+  pointer-events:none; /* no bloquea clicks */
+  z-index:0;
 }
 
 /* pantalla inicial */
 #inicio{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-position: relative;
-z-index:1;  /* Por encima del fondo */
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  z-index:1;
 }
 
 /* sobre */
 .envelope{
-width:200px;
-height:120px;
-background:#ff4d6d;
-position:relative;
-border-radius:5px;
-margin-bottom:20px;
-transition:0.1s;
-z-index:1;
-}
-.envelope:before{
-content:'';
-position:absolute;
-top:-60px;
-left:0;
-width:0;
-height:0;
-border-left:100px solid transparent;
-border-right:100px solid transparent;
-border-bottom:60px solid #ff4d6d;
-transition:0.1s;
-}
-.open .envelope:before{
-transform:rotateX(180deg);
-transform-origin:top;
+  width:200px;
+  height:120px;
+  background:#ff4d6d;
+  border-radius:5px;
+  margin-bottom:20px;
 }
 
 /* botón */
 #abrirBtn{
-padding:15px 30px;
-font-size:20px;
-border:none;
-border-radius:12px;
-background:#ff4d6d;
-color:white;
-cursor:pointer;
-transition:0.2s;
-position: relative;
-z-index: 2; /* Siempre clickeable */
-}
-#abrirBtn:hover{
-transform:scale(1.1);
+  padding:15px 30px;
+  font-size:20px;
+  border:none;
+  border-radius:12px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  z-index:2;
+  position:relative;
 }
 
 /* carta */
 #carta{
-display:none;
-max-width:700px;
-margin:auto;
-margin-top:5vh;
-background:rgba(0,0,0,0.85);
-padding:40px;
-border-radius:15px;
-line-height:1.7;
-animation:fade 0.1s; /* muy rápido */
-position: relative;
-z-index:1;
-}
-@keyframes fade{
-from{opacity:0; transform:translateY(0);}
-to{opacity:1; transform:translateY(0);}
+  display:none;
+  max-width:700px;
+  margin:auto;
+  margin-top:5vh;
+  background:rgba(0,0,0,0.85);
+  padding:40px;
+  border-radius:15px;
+  line-height:1.7;
+  position:relative;
+  z-index:1;
 }
 
 /* mensaje final */
 #mensajeFinal{
-display:none;
-text-align:center;
-margin-top:30px;
-font-size:28px;
-color:#ffb347;
-animation:fade 0.1s;
+  display:none;
+  text-align:center;
+  margin-top:30px;
+  font-size:28px;
+  color:#ffb347;
 }
-
 </style>
 </head>
 <body>
@@ -126,51 +96,49 @@ animation:fade 0.1s;
 <div class="stars"></div>
 
 <div id="inicio">
-<div class="envelope"></div>
-<h1>✨ Tengo algo para ti ✨</h1>
-<p>Hay algo que quiero que leas con calma.</p>
-<button id="abrirBtn">Abrir carta 💌</button>
+  <div class="envelope"></div>
+  <h1>✨ Tengo algo para ti ✨</h1>
+  <p>Hay algo que quiero que leas con calma.</p>
+  <button id="abrirBtn">Abrir carta 💌</button>
 </div>
 
 <div id="carta">
-<h2>Para ti</h2>
-<p>
-Le doy gracias al universo por haberte puesto en mi camino.  
-Tu forma de estar, de hablarme y de hacerme sentir incluso a la distancia llena mis días de calma y mi corazón de un cariño que crece sin prisa.
-</p>
-<p>
-Aunque aún no hablamos demasiado, incluso si a veces son solo pocos mensajes, de alguna manera siempre logras estar presente en mi mente.  
-Hay algo en tu forma de ser, en tu luz y en tu manera de compartir tu mundo que hace que destaque entre todo lo demás.
-</p>
-<p>
-Tal vez el universo funciona así… como una galaxia llena de encuentros inesperados.  
-Y entre tantas estrellas, apareció alguien que brilla con una luz muy especial.
-</p>
-<p>
-Me gusta imaginar que algún día podremos coincidir más, compartir risas, momentos simples y esas pequeñas cosas que terminan volviéndose recuerdos importantes.
-</p>
-<p>
-Mientras tanto, solo quería que supieras algo:  
-te aprecio más de lo que probablemente imaginas.
-</p>
-<p>
-Gracias por existir en mi universo.
-</p>
-<div id="mensajeFinal">💫 Gracias por llegar a mi universo 💫</div>
+  <h2>Para ti</h2>
+  <p>
+    Le doy gracias al universo por haberte puesto en mi camino.  
+    Tu forma de estar, de hablarme y de hacerme sentir incluso a la distancia llena mis días de calma y mi corazón de un cariño que crece sin prisa.
+  </p>
+  <p>
+    Aunque aún no hablamos demasiado, incluso si a veces son solo pocos mensajes, de alguna manera siempre logras estar presente en mi mente.  
+    Hay algo en tu forma de ser, en tu luz y en tu manera de compartir tu mundo que hace que destaque entre todo lo demás.
+  </p>
+  <p>
+    Tal vez el universo funciona así… como una galaxia llena de encuentros inesperados.  
+    Y entre tantas estrellas, apareció alguien que brilla con una luz muy especial.
+  </p>
+  <p>
+    Me gusta imaginar que algún día podremos coincidir más, compartir risas, momentos simples y esas pequeñas cosas que terminan volviéndose recuerdos importantes.
+  </p>
+  <p>
+    Mientras tanto, solo quería que supieras algo:  
+    te aprecio más de lo que probablemente imaginas.
+  </p>
+  <p>
+    Gracias por existir en mi universo.
+  </p>
+  <div id="mensajeFinal">💫 Gracias por llegar a mi universo 💫</div>
 </div>
-
-<audio id="musica" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-piano-ambient-110997.mp3" type="audio/mpeg">
-</audio>
 
 <script>
 document.getElementById("abrirBtn").addEventListener("click", function(){
-    document.querySelector(".envelope").classList.add("open");
-    document.getElementById("inicio").style.display = "none";
-    document.getElementById("carta").style.display = "block";
-    const musica = document.getElementById("musica");
-    musica.play().catch(()=>{});
-    setTimeout(()=>{document.getElementById("mensajeFinal").style.display="block";}, 500);
+  // abrir carta instantáneamente
+  document.getElementById("inicio").style.display="none";
+  document.getElementById("carta").style.display="block";
+
+  // mostrar mensaje final después de 10 segundos
+  setTimeout(()=>{
+    document.getElementById("mensajeFinal").style.display="block";
+  }, 10000);
 });
 </script>
 
