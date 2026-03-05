@@ -12,25 +12,30 @@ body{
   overflow:hidden;
 }
 
-/* fondo de estrellas estático */
+/* fondo de estrellas animadas, pero sin bloquear clicks */
 .stars{
   position:fixed;
   width:100%;
   height:100%;
   background:black;
-  box-shadow:
-    50px 80px white,
-    120px 200px white,
-    300px 150px white,
-    500px 300px white,
-    700px 100px white,
-    900px 250px white,
-    1100px 180px white,
-    1300px 320px white,
-    150px 400px white,
-    800px 420px white;
-  pointer-events:none; /* no bloquea clicks */
+  pointer-events:none; /* nunca bloquea clicks */
   z-index:0;
+}
+
+/* crear muchas estrellas */
+.star{
+  position:absolute;
+  background:white;
+  border-radius:50%;
+  width:2px;
+  height:2px;
+  opacity:0.8;
+  animation:twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle{
+  from{opacity:0.3;}
+  to{opacity:1;}
 }
 
 /* pantalla inicial */
@@ -93,7 +98,7 @@ body{
 </head>
 <body>
 
-<div class="stars"></div>
+<div class="stars" id="starsContainer"></div>
 
 <div id="inicio">
   <div class="envelope"></div>
@@ -130,16 +135,28 @@ body{
 </div>
 
 <script>
+// abrir carta instantáneamente
 document.getElementById("abrirBtn").addEventListener("click", function(){
-  // abrir carta instantáneamente
   document.getElementById("inicio").style.display="none";
   document.getElementById("carta").style.display="block";
-
-  // mostrar mensaje final después de 10 segundos
+  // mostrar mensaje final después de 10s
   setTimeout(()=>{
     document.getElementById("mensajeFinal").style.display="block";
   }, 10000);
 });
+
+// generar estrellas
+const starsContainer = document.getElementById("starsContainer");
+const totalStars = 100; // número de estrellas
+for(let i=0;i<totalStars;i++){
+  const star = document.createElement("div");
+  star.className="star";
+  star.style.top = Math.random()*100 + "vh";
+  star.style.left = Math.random()*100 + "vw";
+  star.style.width = star.style.height = (Math.random()*2+1)+"px";
+  star.style.animationDuration = (Math.random()*2+1) + "s";
+  starsContainer.appendChild(star);
+}
 </script>
 
 </body>
