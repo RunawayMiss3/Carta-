@@ -12,30 +12,27 @@ body{
   overflow:hidden;
 }
 
-/* fondo de estrellas animadas, pero sin bloquear clicks */
+/* fondo de estrellas dinámico y visualmente único */
 .stars{
   position:fixed;
   width:100%;
   height:100%;
-  background:black;
-  pointer-events:none; /* nunca bloquea clicks */
   z-index:0;
+  pointer-events:none;
 }
-
-/* crear muchas estrellas */
 .star{
   position:absolute;
   background:white;
   border-radius:50%;
-  width:2px;
-  height:2px;
-  opacity:0.8;
-  animation:twinkle 3s infinite alternate;
+  opacity:0.5;
+  animation-name:float;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
-
-@keyframes twinkle{
-  from{opacity:0.3;}
-  to{opacity:1;}
+@keyframes float{
+  0% {transform: translate(0,0);}
+  50% {transform: translate(var(--dx, 10px), var(--dy, 10px));}
+  100% {transform: translate(0,var(--dy2, 20px));}
 }
 
 /* pantalla inicial */
@@ -135,26 +132,34 @@ body{
 </div>
 
 <script>
-// abrir carta instantáneamente
+// abrir carta instantáneo
 document.getElementById("abrirBtn").addEventListener("click", function(){
   document.getElementById("inicio").style.display="none";
   document.getElementById("carta").style.display="block";
-  // mostrar mensaje final después de 10s
   setTimeout(()=>{
     document.getElementById("mensajeFinal").style.display="block";
   }, 10000);
 });
 
-// generar estrellas
+// crear estrellas únicas
 const starsContainer = document.getElementById("starsContainer");
-const totalStars = 100; // número de estrellas
+const totalStars = 150; // más estrellas para efecto profundo
 for(let i=0;i<totalStars;i++){
   const star = document.createElement("div");
   star.className="star";
   star.style.top = Math.random()*100 + "vh";
   star.style.left = Math.random()*100 + "vw";
-  star.style.width = star.style.height = (Math.random()*2+1)+"px";
-  star.style.animationDuration = (Math.random()*2+1) + "s";
+  const size = Math.random()*2+1;
+  star.style.width = star.style.height = size + "px";
+  star.style.opacity = Math.random()*0.7 + 0.3;
+
+  // asignar desplazamiento único para animación
+  star.style.setProperty('--dx', (Math.random()*20-10)+'px'); // horizontal
+  star.style.setProperty('--dy', (Math.random()*20-10)+'px'); // vertical
+  star.style.setProperty('--dy2', (Math.random()*50+10)+'px'); // final vertical
+
+  star.style.animationDuration = (Math.random()*15 + 5)+'s';
+  star.style.animationDelay = (Math.random()*5)+'s';
   starsContainer.appendChild(star);
 }
 </script>
