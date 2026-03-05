@@ -1,89 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Una carta para ti</title>
+<title>Para ti ✨</title>
 
 <style>
 
 body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background: radial-gradient(circle at bottom,#0d1b2a,#000);
-    font-family: "Georgia", serif;
-    color:white;
-    overflow:hidden;
+margin:0;
+font-family:Georgia, serif;
+background:black;
+color:white;
+overflow:hidden;
 }
 
-/* Estrellas */
+/* estrellas */
 
 .stars{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:transparent;
+position:fixed;
+width:100%;
+height:100%;
+background:transparent;
+box-shadow:
+50px 80px white,
+120px 200px white,
+300px 150px white,
+500px 300px white,
+700px 100px white,
+900px 250px white,
+1100px 180px white,
+1300px 320px white;
+animation:moveStars 60s linear infinite;
 }
 
-.stars::after{
-    content:"";
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    box-shadow:
-    200px 300px white,
-    500px 200px white,
-    800px 400px white,
-    1200px 150px white,
-    100px 500px white,
-    700px 600px white,
-    400px 700px white,
-    900px 300px white,
-    1300px 500px white;
-    animation: twinkle 4s infinite alternate;
+@keyframes moveStars{
+from{transform:translateY(0);}
+to{transform:translateY(-1000px);}
 }
 
-@keyframes twinkle{
-    from{opacity:0.3;}
-    to{opacity:1;}
+/* pantalla inicial */
+
+#inicio{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
 }
 
-/* Carta */
-
-.card{
-    background:rgba(0,0,0,0.6);
-    padding:45px;
-    border-radius:20px;
-    max-width:650px;
-    line-height:1.8;
-    backdrop-filter:blur(6px);
-    box-shadow:0 0 30px rgba(255,255,255,0.2);
-    animation: aparecer 2s ease;
+button{
+padding:15px 30px;
+font-size:20px;
+border:none;
+border-radius:12px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+transition:0.3s;
 }
 
-@keyframes aparecer{
-    from{opacity:0; transform:translateY(30px);}
-    to{opacity:1; transform:translateY(0);}
+button:hover{
+transform:scale(1.1);
 }
 
-h1{
-    text-align:center;
-    letter-spacing:2px;
-    margin-bottom:25px;
+/* carta */
+
+#carta{
+display:none;
+max-width:700px;
+margin:auto;
+margin-top:10vh;
+background:rgba(0,0,0,0.7);
+padding:40px;
+border-radius:15px;
+line-height:1.7;
+animation:fade 2s;
 }
 
-p{
-    margin-bottom:18px;
+@keyframes fade{
+from{opacity:0; transform:translateY(40px);}
+to{opacity:1; transform:translateY(0);}
 }
 
-.frase{
-    text-align:center;
-    font-style:italic;
-    opacity:0.9;
+/* estrella fugaz */
+
+.shooting-star{
+position:fixed;
+top:0;
+left:-100px;
+width:3px;
+height:3px;
+background:white;
+box-shadow:0 0 10px white;
+animation:shoot 4s linear infinite;
+}
+
+@keyframes shoot{
+0%{
+transform:translate(0,0);
+opacity:1;
+}
+100%{
+transform:translate(1200px,600px);
+opacity:0;
+}
 }
 
 </style>
@@ -92,36 +113,69 @@ p{
 <body>
 
 <div class="stars"></div>
+<div class="shooting-star"></div>
 
-<div class="card">
+<div id="inicio">
 
-<h1>Para ti ✨</h1>
+<h1>✨ Tengo algo para ti ✨</h1>
+<p>Hay algo que quiero que leas con calma.</p>
+
+<button onclick="abrirCarta()">Abrir carta 💌</button>
+
+</div>
+
+
+<div id="carta">
+
+<h2>Para ti</h2>
 
 <p>
-Le doy gracias al universo por haberte puesto en mi camino. Siempre me ha gustado mirar el espacio, las estrellas y pensar que el universo conecta a las personas de maneras curiosas. A veces siento que encontrarte fue un poco así, como una coincidencia bonita entre millones de caminos.
+Le doy gracias al universo por haberte puesto en mi camino.  
+Tu forma de estar, de hablarme y de hacerme sentir incluso a la distancia llena mis días de calma y mi corazón de un cariño que crece sin prisa.
 </p>
 
 <p>
-Aunque todavía no hablamos tanto en persona ni por chat, cada conversación contigo se siente especial. Incluso si son solo pocos mensajes, de alguna forma logran quedarse en mi mente más tiempo del que imaginaba.
+Aunque aún no hablamos demasiado, incluso si a veces son solo pocos mensajes, de alguna manera siempre logras estar presente en mi mente.  
+Hay algo en tu forma de ser, en tu luz y en tu manera de compartir tu mundo que hace que destaque entre todo lo demás.
 </p>
 
 <p>
-También me gusta ver lo que compartes. Tienes un estilo muy bonito y una vibra que llama la atención. La verdad es que como influencer te la rifas, porque no solo son las fotos, también la energía que transmites.
+Tal vez el universo funciona así… como una galaxia llena de encuentros inesperados.  
+Y entre tantas estrellas, apareció alguien que brilla con una luz muy especial.
 </p>
 
 <p>
-Dicen algunas canciones que cuando alguien llega a tu mente, simplemente no se va. Y a veces me pasa eso contigo.
-</p>
-
-<p class="frase">
-"Porque el cariño verdadero no se explica… solo se siente."
+Me gusta imaginar que algún día podremos coincidir más, compartir risas, momentos simples y esas pequeñas cosas que terminan volviéndose recuerdos importantes.
 </p>
 
 <p>
-Por eso me gusta la idea de seguir conociéndote poco a poco. A veces las mejores historias empiezan así, con pequeños mensajes que con el tiempo se vuelven momentos que uno recuerda mucho.
+Mientras tanto, solo quería que supieras algo:  
+te aprecio más de lo que probablemente imaginas.
+</p>
+
+<p>
+Gracias por existir en mi universo.
 </p>
 
 </div>
+
+<audio id="musica" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-piano-ambient-110997.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+function abrirCarta(){
+
+document.getElementById("inicio").style.display="none";
+document.getElementById("carta").style.display="block";
+
+document.getElementById("musica").play();
+
+}
+
+</script>
 
 </body>
 </html>
