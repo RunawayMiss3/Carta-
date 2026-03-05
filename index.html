@@ -14,6 +14,7 @@ body{
 
 /* carta */
 #carta{
+  display:none;
   max-width:700px;
   margin:auto;
   margin-top:5vh;
@@ -25,7 +26,50 @@ body{
   z-index:1;
 }
 
-/* mensaje final */
+/* pantalla inicial */
+#inicio{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+
+/* sobre */
+.envelope{
+  width:200px;
+  height:120px;
+  background:#ff4d6d;
+  border-radius:5px;
+  margin-bottom:20px;
+}
+
+/* botón */
+#abrirBtn{
+  padding:15px 30px;
+  font-size:20px;
+  border:none;
+  border-radius:12px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  z-index:2;
+  position:relative;
+}
+
+/* estrellas fugaces premium */
+.shooting-star{
+  position:fixed;
+  background:white;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+  opacity:0;
+  transform:translate(0,0);
+}
 #mensajeFinal{
   display:none;
   text-align:center;
@@ -33,22 +77,16 @@ body{
   font-size:28px;
   color:#ffb347;
 }
-
-/* estrella fugaz */
-.shooting-star{
-  position:fixed;
-  width:2px;
-  height:2px;
-  background:white;
-  box-shadow:0 0 8px white;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:0;
-  opacity:0;
-}
 </style>
 </head>
 <body>
+
+<div id="inicio">
+  <div class="envelope"></div>
+  <h1>✨ Tengo algo para ti ✨</h1>
+  <p>Hay algo que quiero que leas con calma.</p>
+  <button id="abrirBtn">Abrir carta 💌</button>
+</div>
 
 <div id="carta">
   <h2>Para ti</h2>
@@ -78,42 +116,61 @@ body{
 </div>
 
 <script>
-// mostrar mensaje final a los 10s
-setTimeout(()=>{
-  document.getElementById("mensajeFinal").style.display="block";
-}, 10000);
-
-// crear múltiples estrellas fugaces al mismo tiempo
-function createShootingStar(){
-  const shootingStar = document.createElement("div");
-  shootingStar.className = "shooting-star";
-  shootingStar.style.top = Math.random()*80 + "vh";
-  shootingStar.style.left = "-50px";
-  shootingStar.style.width = Math.random()*3+1 + "px";
-  shootingStar.style.height = shootingStar.style.width;
-  document.body.appendChild(shootingStar);
-
-  const dx = 1200 + Math.random()*400;
-  const dy = 300 + Math.random()*400;
-  shootingStar.style.transition = "transform 1s linear, opacity 1s linear";
-  shootingStar.style.transform = `translate(${dx}px, ${dy}px)`;
-  shootingStar.style.opacity = "1";
-
+// abrir carta instantáneo
+document.getElementById("abrirBtn").addEventListener("click", function(){
+  document.getElementById("inicio").style.display="none";
+  document.getElementById("carta").style.display="block";
   setTimeout(()=>{
-    shootingStar.remove();
-  }, 1000);
+    document.getElementById("mensajeFinal").style.display="block";
+  }, 10000);
+});
+
+// función para crear estrella fugaz premium
+function createShootingStar(){
+  const star = document.createElement("div");
+  star.className = "shooting-star";
+
+  // tamaño aleatorio y trazo
+  const size = Math.random()*2 + 1;
+  const length = Math.random()*80 + 50; // trazo largo
+  star.style.width = length + "px";
+  star.style.height = size + "px";
+
+  // posición inicial
+  const top = Math.random()*80;
+  star.style.top = top + "vh";
+  star.style.left = "-100px";
+  star.style.opacity = 1;
+
+  document.body.appendChild(star);
+
+  // velocidad aleatoria
+  const duration = Math.random()*0.8 + 0.7; // 0.7 a 1.5s
+  const dx = window.innerWidth + 200;
+  const dy = Math.random()*200 - 100;
+
+  // animación con transform
+  star.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
+  setTimeout(()=>{
+    star.style.transform = `translate(${dx}px, ${dy}px)`;
+    star.style.opacity = 0;
+  }, 50);
+
+  // eliminar después de animación
+  setTimeout(()=>star.remove(), duration*1000 + 100);
 }
 
-// generar muchas estrellas fugaces al mismo tiempo
-function launchMeteorShower(){
-  for(let i=0;i<10;i++){ // 10 estrellas fugaces simultáneas
-    setTimeout(createShootingStar, i*150); // pequeño retraso entre cada una
+// función para lanzar varias estrellas al mismo tiempo
+function meteorShower(){
+  const count = 15 + Math.floor(Math.random()*10); // 15-25 estrellas simultáneas
+  for(let i=0;i<count;i++){
+    setTimeout(createShootingStar, i*100);
   }
-  setTimeout(launchMeteorShower, 4000 + Math.random()*2000); // repetir lluvia cada 4-6s
+  setTimeout(meteorShower, 4000 + Math.random()*2000);
 }
 
-// iniciar lluvia de estrellas
-launchMeteorShower();
+// iniciar lluvia de estrellas fugaces
+meteorShower();
 </script>
 
 </body>
