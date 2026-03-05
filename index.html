@@ -84,9 +84,19 @@ body{
 
 .star.yellow{
   background:yellow;
+  animation-name:blink;
+  animation-duration:2s;
+  animation-iteration-count:infinite;
+  animation-direction:alternate;
 }
 
-/* animación lluvia */
+@keyframes blink{
+  0% {opacity:0.3;}
+  50% {opacity:1;}
+  100% {opacity:0.3;}
+}
+
+/* lluvia */
 @keyframes fall{
   0% {transform: translateY(-10vh);}
   100% {transform: translateY(110vh);}
@@ -130,18 +140,27 @@ body{
 </div>
 
 <script>
-// -------- crear lluvia de estrellas --------
+// -------- crear lluvia de estrellas y destellos --------
 const totalStars = 250;
 
 for(let i=0;i<totalStars;i++){
   const star = document.createElement("div");
-  star.className = Math.random()<0.6 ? "star white" : "star yellow";
+  const isYellow = Math.random()<0.5;
+  star.className = isYellow ? "star yellow" : "star white";
   const size = Math.random()*3+1;
   star.style.width = star.style.height = size+"px";
   star.style.left = Math.random()*100+"vw";
   star.style.top = Math.random()*-100+"vh";
+  
   const duration = Math.random()*10 + 5; // 5s a 15s
   star.style.animation = `fall ${duration}s linear infinite`;
+  
+  // algunas amarillas parpadean rápido
+  if(isYellow && Math.random()<0.3){
+    const fastBlink = Math.random()*1+0.5;
+    star.style.animationDuration = fastBlink+"s, "+duration+"s";
+  }
+
   star.style.opacity = Math.random()*0.8+0.2;
   document.body.appendChild(star);
 }
