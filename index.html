@@ -29,7 +29,9 @@ box-shadow:
 700px 100px white,
 900px 250px white,
 1100px 180px white,
-1300px 320px white;
+1300px 320px white,
+150px 400px white,
+800px 420px white;
 animation:moveStars 60s linear infinite;
 }
 
@@ -48,6 +50,37 @@ justify-content:center;
 align-items:center;
 text-align:center;
 }
+
+/* sobre */
+
+.envelope{
+width:200px;
+height:120px;
+background:#ff4d6d;
+position:relative;
+border-radius:5px;
+margin-bottom:20px;
+}
+
+.envelope:before{
+content:'';
+position:absolute;
+top:-60px;
+left:0;
+width:0;
+height:0;
+border-left:100px solid transparent;
+border-right:100px solid transparent;
+border-bottom:60px solid #ff4d6d;
+transition:1s;
+}
+
+.open .envelope:before{
+transform:rotateX(180deg);
+transform-origin:top;
+}
+
+/* botón */
 
 button{
 padding:15px 30px;
@@ -71,7 +104,7 @@ display:none;
 max-width:700px;
 margin:auto;
 margin-top:10vh;
-background:rgba(0,0,0,0.7);
+background:rgba(0,0,0,0.8);
 padding:40px;
 border-radius:15px;
 line-height:1.7;
@@ -93,7 +126,7 @@ width:3px;
 height:3px;
 background:white;
 box-shadow:0 0 10px white;
-animation:shoot 4s linear infinite;
+animation:shoot 5s linear infinite;
 }
 
 @keyframes shoot{
@@ -117,13 +150,14 @@ opacity:0;
 
 <div id="inicio">
 
+<div class="envelope"></div>
+
 <h1>✨ Tengo algo para ti ✨</h1>
 <p>Hay algo que quiero que leas con calma.</p>
 
 <button onclick="abrirCarta()">Abrir carta 💌</button>
 
 </div>
-
 
 <div id="carta">
 
@@ -163,7 +197,6 @@ Gracias por existir en mi universo.
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-piano-ambient-110997.mp3" type="audio/mpeg">
 </audio>
 
-
 <script>
 
 function abrirCarta(){
@@ -171,7 +204,9 @@ function abrirCarta(){
 document.getElementById("inicio").style.display="none";
 document.getElementById("carta").style.display="block";
 
-document.getElementById("musica").play();
+const musica = document.getElementById("musica");
+
+musica.play().catch(()=>{});
 
 }
 
