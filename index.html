@@ -11,6 +11,7 @@ background:black;
 color:white;
 overflow:hidden;
 }
+
 /* estrellas de fondo */
 .stars{
 position:fixed;
@@ -28,12 +29,10 @@ box-shadow:
 1300px 320px white,
 150px 400px white,
 800px 420px white;
-animation:moveStars 30s linear infinite;
+z-index:0;             /* Fondo detrás de todo */
+pointer-events: none;  /* No bloquea clics */
 }
-@keyframes moveStars{
-from{transform:translateY(0);}
-to{transform:translateY(-1000px);}
-}
+
 /* pantalla inicial */
 #inicio{
 height:100vh;
@@ -42,7 +41,10 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
+position: relative;
+z-index:1;  /* Por encima del fondo */
 }
+
 /* sobre */
 .envelope{
 width:200px;
@@ -52,6 +54,7 @@ position:relative;
 border-radius:5px;
 margin-bottom:20px;
 transition:0.1s;
+z-index:1;
 }
 .envelope:before{
 content:'';
@@ -69,8 +72,9 @@ transition:0.1s;
 transform:rotateX(180deg);
 transform-origin:top;
 }
+
 /* botón */
-button{
+#abrirBtn{
 padding:15px 30px;
 font-size:20px;
 border:none;
@@ -79,10 +83,13 @@ background:#ff4d6d;
 color:white;
 cursor:pointer;
 transition:0.2s;
+position: relative;
+z-index: 2; /* Siempre clickeable */
 }
-button:hover{
+#abrirBtn:hover{
 transform:scale(1.1);
 }
+
 /* carta */
 #carta{
 display:none;
@@ -93,12 +100,15 @@ background:rgba(0,0,0,0.85);
 padding:40px;
 border-radius:15px;
 line-height:1.7;
-animation:fade 0.2s;
+animation:fade 0.1s; /* muy rápido */
+position: relative;
+z-index:1;
 }
 @keyframes fade{
-from{opacity:0; transform:translateY(10px);}
+from{opacity:0; transform:translateY(0);}
 to{opacity:1; transform:translateY(0);}
 }
+
 /* mensaje final */
 #mensajeFinal{
 display:none;
@@ -106,8 +116,9 @@ text-align:center;
 margin-top:30px;
 font-size:28px;
 color:#ffb347;
-animation:fade 0.2s;
+animation:fade 0.1s;
 }
+
 </style>
 </head>
 <body>
@@ -159,7 +170,7 @@ document.getElementById("abrirBtn").addEventListener("click", function(){
     document.getElementById("carta").style.display = "block";
     const musica = document.getElementById("musica");
     musica.play().catch(()=>{});
-    setTimeout(()=>{document.getElementById("mensajeFinal").style.display="block";}, 1000);
+    setTimeout(()=>{document.getElementById("mensajeFinal").style.display="block";}, 500);
 });
 </script>
 
