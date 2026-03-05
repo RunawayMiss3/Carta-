@@ -7,12 +7,12 @@
 body{
   margin:0;
   font-family:Georgia, serif;
-  background:black;
+  background: linear-gradient(#000000, #0b0b3b); /* degradado de universo */
   color:white;
   overflow:hidden;
 }
 
-/* fondo de estrellas dinámico y visualmente único */
+/* fondo de estrellas dinámico */
 .stars{
   position:fixed;
   width:100%;
@@ -91,11 +91,25 @@ body{
   font-size:28px;
   color:#ffb347;
 }
+
+/* estrella fugaz */
+.shooting-star{
+  position:fixed;
+  width:3px;
+  height:3px;
+  background:white;
+  box-shadow:0 0 10px white;
+  top:-10px;
+  left:-10px;
+  border-radius:50%;
+  pointer-events:none; /* nunca bloquea clicks */
+}
 </style>
 </head>
 <body>
 
 <div class="stars" id="starsContainer"></div>
+<div class="shooting-star" id="shootingStar"></div>
 
 <div id="inicio">
   <div class="envelope"></div>
@@ -141,27 +155,41 @@ document.getElementById("abrirBtn").addEventListener("click", function(){
   }, 10000);
 });
 
-// crear estrellas únicas
+// crear estrellas flotantes
 const starsContainer = document.getElementById("starsContainer");
-const totalStars = 150; // más estrellas para efecto profundo
+const totalStars = 150;
 for(let i=0;i<totalStars;i++){
   const star = document.createElement("div");
   star.className="star";
   star.style.top = Math.random()*100 + "vh";
   star.style.left = Math.random()*100 + "vw";
-  const size = Math.random()*2+1;
+  let size = Math.random()*2+1;
   star.style.width = star.style.height = size + "px";
   star.style.opacity = Math.random()*0.7 + 0.3;
-
-  // asignar desplazamiento único para animación
-  star.style.setProperty('--dx', (Math.random()*20-10)+'px'); // horizontal
-  star.style.setProperty('--dy', (Math.random()*20-10)+'px'); // vertical
-  star.style.setProperty('--dy2', (Math.random()*50+10)+'px'); // final vertical
-
+  star.style.setProperty('--dx', (Math.random()*20-10)+'px');
+  star.style.setProperty('--dy', (Math.random()*20-10)+'px');
+  star.style.setProperty('--dy2', (Math.random()*50+10)+'px');
   star.style.animationDuration = (Math.random()*15 + 5)+'s';
   star.style.animationDelay = (Math.random()*5)+'s';
   starsContainer.appendChild(star);
 }
+
+// estrella fugaz aleatoria
+const shootingStar = document.getElementById("shootingStar");
+function shoot(){
+  shootingStar.style.top = Math.random()*50 + "vh";
+  shootingStar.style.left = "-50px";
+  const dx = 1200 + Math.random()*200;
+  const dy = 400 + Math.random()*200;
+  shootingStar.style.transition = "transform 1s linear";
+  shootingStar.style.transform = `translate(${dx}px, ${dy}px)`;
+  setTimeout(()=>{
+    shootingStar.style.transition = "none";
+    shootingStar.style.transform = "translate(0,0)";
+  }, 1000);
+  setTimeout(shoot, 3000 + Math.random()*4000); // cada 3-7s
+}
+shoot();
 </script>
 
 </body>
