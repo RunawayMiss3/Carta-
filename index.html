@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Para ti ✨</title>
-
 <style>
 body{
 margin:0;
@@ -12,8 +11,7 @@ background:black;
 color:white;
 overflow:hidden;
 }
-
-/* estrellas */
+/* estrellas de fondo */
 .stars{
 position:fixed;
 width:100%;
@@ -30,13 +28,12 @@ box-shadow:
 1300px 320px white,
 150px 400px white,
 800px 420px white;
-animation:moveStars 60s linear infinite;
+animation:moveStars 30s linear infinite;
 }
 @keyframes moveStars{
 from{transform:translateY(0);}
 to{transform:translateY(-1000px);}
 }
-
 /* pantalla inicial */
 #inicio{
 height:100vh;
@@ -46,7 +43,6 @@ justify-content:center;
 align-items:center;
 text-align:center;
 }
-
 /* sobre */
 .envelope{
 width:200px;
@@ -55,7 +51,7 @@ background:#ff4d6d;
 position:relative;
 border-radius:5px;
 margin-bottom:20px;
-transition:1s;
+transition:0.1s;
 }
 .envelope:before{
 content:'';
@@ -67,13 +63,12 @@ height:0;
 border-left:100px solid transparent;
 border-right:100px solid transparent;
 border-bottom:60px solid #ff4d6d;
-transition:1s;
+transition:0.1s;
 }
 .open .envelope:before{
 transform:rotateX(180deg);
 transform-origin:top;
 }
-
 /* botón */
 button{
 padding:15px 30px;
@@ -83,117 +78,117 @@ border-radius:12px;
 background:#ff4d6d;
 color:white;
 cursor:pointer;
-transition:0.3s;
+transition:0.2s;
 }
 button:hover{
 transform:scale(1.1);
 }
-
 /* carta */
 #carta{
 display:none;
 max-width:700px;
 margin:auto;
-margin-top:10vh;
-background:rgba(0,0,0,0.8);
+margin-top:5vh;
+background:rgba(0,0,0,0.85);
 padding:40px;
 border-radius:15px;
 line-height:1.7;
-animation:fade 2s;
+animation:fade 0.2s;
 }
 @keyframes fade{
-from{opacity:0; transform:translateY(40px);}
+from{opacity:0; transform:translateY(10px);}
 to{opacity:1; transform:translateY(0);}
 }
-
-/* estrella fugaz */
-.shooting-star{
+/* estrellas fugaces rápidas */
+.shooting-star, .shooting-star2, .shooting-star3{
 position:fixed;
 top:0;
-left:-100px;
 width:3px;
 height:3px;
 background:white;
 box-shadow:0 0 10px white;
-animation:shoot 5s linear infinite;
+animation:shoot 1s linear infinite;
 }
+.shooting-star2{animation:shoot2 1.2s linear infinite; top:50px;}
+.shooting-star3{animation:shoot3 0.9s linear infinite; top:100px;}
 @keyframes shoot{
-0%{transform:translate(0,0);opacity:1;}
+0%{transform:translate(-100px,0);opacity:1;}
 100%{transform:translate(1200px,600px);opacity:0;}
 }
-
+@keyframes shoot2{
+0%{transform:translate(-200px,0);opacity:1;}
+100%{transform:translate(1200px,500px);opacity:0;}
+}
+@keyframes shoot3{
+0%{transform:translate(-150px,0);opacity:1;}
+100%{transform:translate(1200px,700px);opacity:0;}
+}
+/* mensaje final */
+#mensajeFinal{
+display:none;
+text-align:center;
+margin-top:30px;
+font-size:28px;
+color:#ffb347;
+animation:fade 0.5s;
+}
 </style>
 </head>
-
 <body>
 
 <div class="stars"></div>
 <div class="shooting-star"></div>
+<div class="shooting-star2"></div>
+<div class="shooting-star3"></div>
 
 <div id="inicio">
-
 <div class="envelope"></div>
-
 <h1>✨ Tengo algo para ti ✨</h1>
 <p>Hay algo que quiero que leas con calma.</p>
-
-<!-- Botón seguro -->
 <button id="abrirBtn">Abrir carta 💌</button>
-
 </div>
 
 <div id="carta">
-
 <h2>Para ti</h2>
-
 <p>
 Le doy gracias al universo por haberte puesto en mi camino.  
 Tu forma de estar, de hablarme y de hacerme sentir incluso a la distancia llena mis días de calma y mi corazón de un cariño que crece sin prisa.
 </p>
-
 <p>
 Aunque aún no hablamos demasiado, incluso si a veces son solo pocos mensajes, de alguna manera siempre logras estar presente en mi mente.  
 Hay algo en tu forma de ser, en tu luz y en tu manera de compartir tu mundo que hace que destaque entre todo lo demás.
 </p>
-
 <p>
 Tal vez el universo funciona así… como una galaxia llena de encuentros inesperados.  
 Y entre tantas estrellas, apareció alguien que brilla con una luz muy especial.
 </p>
-
 <p>
 Me gusta imaginar que algún día podremos coincidir más, compartir risas, momentos simples y esas pequeñas cosas que terminan volviéndose recuerdos importantes.
 </p>
-
 <p>
 Mientras tanto, solo quería que supieras algo:  
 te aprecio más de lo que probablemente imaginas.
 </p>
-
 <p>
 Gracias por existir en mi universo.
 </p>
-
+<div id="mensajeFinal">💫 Gracias por llegar a mi universo 💫</div>
 </div>
 
-<!-- Música -->
 <audio id="musica" loop>
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-piano-ambient-110997.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// Opción segura para abrir carta
+// abrir carta instantáneo y música
 document.getElementById("abrirBtn").addEventListener("click", function(){
-    // Animación del sobre
     document.querySelector(".envelope").classList.add("open");
-
-    // Mostrar carta
     document.getElementById("inicio").style.display = "none";
     document.getElementById("carta").style.display = "block";
-
-    // Reproducir música
     const musica = document.getElementById("musica");
     musica.play().catch(()=>{});
+    // mostrar mensaje final después de 1 segundo
+    setTimeout(()=>{document.getElementById("mensajeFinal").style.display="block";}, 1000);
 });
 </script>
 
