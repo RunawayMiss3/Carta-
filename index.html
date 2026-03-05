@@ -1,8 +1,8 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Para ti ✨</title>
+<title>Un mensaje desde mi universo ✨</title>
 <style>
 body{
   margin:0;
@@ -73,12 +73,12 @@ body{
 
 /* estrellas amarillas (easter egg) */
 .star-yellow{
-  position:absolute;
+  position:fixed;
   background:yellow;
   border-radius:50%;
   width:4px;
   height:4px;
-  opacity:0.8;
+  opacity:0;
   pointer-events:none;
   animation:blink 2s infinite alternate;
 }
@@ -136,7 +136,7 @@ body{
 
 <script>
 // -------- ESTRELLAS FUGACES --------
-function createShootingStar(long = false, topPos = null, leftPos = null){
+function createShootingStar(long = false){
   const star = document.createElement("div");
   star.className = "shooting-star";
 
@@ -145,8 +145,8 @@ function createShootingStar(long = false, topPos = null, leftPos = null){
   star.style.width = length + "px";
   star.style.height = size + "px";
 
-  const top = topPos !== null ? topPos : Math.random()*80;
-  const left = leftPos !== null ? leftPos : -100;
+  const top = Math.random()*80;
+  const left = -100;
 
   star.style.top = top + "vh";
   star.style.left = left + "px";
@@ -167,43 +167,51 @@ function createShootingStar(long = false, topPos = null, leftPos = null){
   setTimeout(()=>star.remove(), duration*1000 + 100);
 }
 
-// estrellas iniciales mientras no abre carta
+// estrellas iniciales antes de abrir
 function preOpenStars(){
   createShootingStar();
   setTimeout(preOpenStars, 1000 + Math.random()*1500);
 }
 preOpenStars();
 
-// lluvia de estrellas al abrir carta + easter egg
+// crear estrellas amarillas para easter egg
+const yellowStars = [];
+const letters = ["G","I","S","E","L","E"];
+const startTop = 20; 
+const startLeft = 50;
+letters.forEach((letter, idx)=>{
+  const star = document.createElement("div");
+  star.className = "star-yellow";
+  star.style.top = (startTop + idx*6) + "vh";
+  star.style.left = (startLeft + idx*12) + "px";
+  document.body.appendChild(star);
+  yellowStars.push(star);
+});
+
+// función lluvia al abrir carta
 function meteorShowerPremium(){
   const count = 15 + Math.floor(Math.random()*10);
   for(let i=0;i<count;i++){
     setTimeout(createShootingStar, i*100);
   }
-
-  // Easter egg: letras GISELE con estrellas amarillas
-  const letters = ["G","I","S","E","L","E"];
-  const startTop = 10; // empezar desde 10vh
-  const startLeft = 50; // empezar desde 50px
-  letters.forEach((letter, idx)=>{
-    const star = document.createElement("div");
-    star.className = "star-yellow";
-    star.style.top = (startTop + idx*6) + "vh";
-    star.style.left = (startLeft + idx*12) + "px";
-    document.getElementById("carta").appendChild(star);
-  });
-
   setTimeout(meteorShowerPremium, 4000 + Math.random()*2000);
 }
 
-// abrir carta instantáneo
+// abrir carta
 document.getElementById("abrirBtn").addEventListener("click", function(){
   document.getElementById("inicio").style.display="none";
   document.getElementById("carta").style.display="block";
+
+  // mostrar las estrellas amarillas gradualmente
+  yellowStars.forEach((star, idx)=>{
+    setTimeout(()=>{star.style.opacity = 1;}, idx*500);
+  });
+
+  meteorShowerPremium();
+
   setTimeout(()=>{
     document.getElementById("mensajeFinal").style.display="block";
   },10000);
-  meteorShowerPremium();
 });
 </script>
 
