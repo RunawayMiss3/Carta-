@@ -21,7 +21,7 @@ body{
   align-items:center;
   text-align:center;
   position:relative;
-  z-index:1;
+  z-index:2;
 }
 
 /* sobre */
@@ -57,15 +57,26 @@ body{
   border-radius:15px;
   line-height:1.7;
   position:relative;
-  z-index:1;
+  z-index:2;
 }
 
-/* estrellas blancas y amarillas */
+/* mensaje final */
+#mensajeFinal{
+  display:none;
+  text-align:center;
+  margin-top:30px;
+  font-size:28px;
+  color:#ffb347;
+  font-style:italic;
+}
+
+/* estrellas */
 .star{
   position:fixed;
   border-radius:50%;
   pointer-events:none;
   opacity:0;
+  z-index:1;
 }
 
 .star.white{
@@ -80,16 +91,6 @@ body{
 @keyframes blink{
   from{opacity:0.3;}
   to{opacity:1;}
-}
-
-/* mensaje final */
-#mensajeFinal{
-  display:none;
-  text-align:center;
-  margin-top:30px;
-  font-size:28px;
-  color:#ffb347;
-  font-style:italic;
 }
 </style>
 </head>
@@ -126,13 +127,13 @@ body{
   <p>
     Gracias por existir en mi universo.
   </p>
-  <div id="mensajeFinal">🌌 Cada estrella lleva un suspiro de mi corazón hacia ti 🌌</div>
+  <div id="mensajeFinal">🌌 Cada suspiro del cosmos lleva un pensamiento hacia ti 🌌</div>
 </div>
 
 <script>
-// -------- CREAR ESTRELLAS UNIVERSO --------
-const totalWhite = 150;
-const totalYellow = 50;
+// -------- CREAR ESTRELLAS --------
+const totalWhite = 200;
+const totalYellow = 80;
 const stars = [];
 
 // blancas
@@ -144,11 +145,10 @@ for(let i=0;i<totalWhite;i++){
   star.style.top = Math.random()*100+"vh";
   star.style.left = Math.random()*100+"vw";
   document.body.appendChild(star);
-  stars.push(star);
   animateStar(star);
 }
 
-// amarillas
+// amarillas (universo)
 for(let i=0;i<totalYellow;i++){
   const star = document.createElement("div");
   star.className="star yellow";
@@ -157,7 +157,6 @@ for(let i=0;i<totalYellow;i++){
   star.style.top = Math.random()*100+"vh";
   star.style.left = Math.random()*100+"vw";
   document.body.appendChild(star);
-  stars.push(star);
   animateStar(star);
 }
 
@@ -182,16 +181,16 @@ document.getElementById("abrirBtn").addEventListener("click", function(){
   document.getElementById("inicio").style.display="none";
   document.getElementById("carta").style.display="block";
 
-  // mostrar mensaje final en 5s
+  // mensaje final en 5s
   setTimeout(()=>{
     document.getElementById("mensajeFinal").style.display="block";
   },5000);
 });
 
-// Easter egg GISELE: reemplaza algunas estrellas amarillas para formar letras
+// Easter egg GISELE: dibujar letras discretamente
 const easterLetters = [
-  {top:20,left:40},{top:26,left:42},{top:32,left:44},{top:38,left:46},
-  {top:44,left:48},{top:50,left:50} // posiciones aproximadas
+  {top:20,left:30},{top:26,left:32},{top:32,left:34},{top:38,left:36},
+  {top:44,left:38},{top:50,left:40} // posiciones aproximadas
 ];
 easterLetters.forEach(pos=>{
   const star = document.createElement("div");
