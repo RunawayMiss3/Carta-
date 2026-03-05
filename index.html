@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 body{
   margin:0;
   font-family:Georgia, serif;
-  background:black; /* fondo negro */
+  background:black;
   color:white;
   overflow:hidden;
 }
@@ -60,7 +60,7 @@ body{
   position:relative;
 }
 
-/* estrellas fugaces premium */
+/* estrellas fugaces */
 .shooting-star{
   position:fixed;
   background:white;
@@ -70,6 +70,8 @@ body{
   opacity:0;
   transform:translate(0,0);
 }
+
+/* mensaje final */
 #mensajeFinal{
   display:none;
   text-align:center;
@@ -116,61 +118,74 @@ body{
 </div>
 
 <script>
-// abrir carta instantáneo
+// ---- FUNCIONES ESTRELLAS ----
+function createShootingStar(long = false, topPos = null, leftPos = null){
+  const star = document.createElement("div");
+  star.className = "shooting-star";
+
+  const size = Math.random()*2 + 1;
+  const length = long ? 100 : 50 + Math.random()*50;
+  star.style.width = length + "px";
+  star.style.height = size + "px";
+
+  const top = topPos !== null ? topPos : Math.random()*80;
+  const left = leftPos !== null ? leftPos : -100;
+
+  star.style.top = top + "vh";
+  star.style.left = left + "px";
+  star.style.opacity = 1;
+
+  document.body.appendChild(star);
+
+  const duration = 0.7 + Math.random()*0.8;
+  const dx = window.innerWidth + 200;
+  const dy = Math.random()*300 - 150;
+
+  star.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
+  setTimeout(()=>{
+    star.style.transform = `translate(${dx}px, ${dy}px)`;
+    star.style.opacity = 0;
+  },50);
+
+  setTimeout(()=>star.remove(), duration*1000 + 100);
+}
+
+// lluvia inicial mientras no se abre la carta
+function preOpenStars(){
+  createShootingStar();
+  setTimeout(preOpenStars, 1000 + Math.random()*1500);
+}
+preOpenStars();
+
+// función para lanzar lluvia de estrellas al abrir la carta
+function meteorShowerPremium(){
+  // muchas estrellas fugaces simultáneas
+  const count = 15 + Math.floor(Math.random()*10);
+  for(let i=0;i<count;i++){
+    setTimeout(createShootingStar, i*100);
+  }
+
+  // Easter egg: formar "GISELE"
+  const letters = ["G","I","S","E","L","E"];
+  letters.forEach((letter, idx)=>{
+    // coordenadas aproximadas para que queden dentro de la carta
+    const top = 10 + idx*8;
+    const left = 50 + Math.random()*20;
+    createShootingStar(true, top, left);
+  });
+
+  setTimeout(meteorShowerPremium, 4000 + Math.random()*2000);
+}
+
+// ---- ABRIR CARTA ----
 document.getElementById("abrirBtn").addEventListener("click", function(){
   document.getElementById("inicio").style.display="none";
   document.getElementById("carta").style.display="block";
   setTimeout(()=>{
     document.getElementById("mensajeFinal").style.display="block";
-  }, 10000);
+  },10000);
+  meteorShowerPremium(); // iniciar lluvia intensiva con Easter egg
 });
-
-// función para crear estrella fugaz premium
-function createShootingStar(){
-  const star = document.createElement("div");
-  star.className = "shooting-star";
-
-  // tamaño aleatorio y trazo
-  const size = Math.random()*2 + 1;
-  const length = Math.random()*80 + 50; // trazo largo
-  star.style.width = length + "px";
-  star.style.height = size + "px";
-
-  // posición inicial
-  const top = Math.random()*80;
-  star.style.top = top + "vh";
-  star.style.left = "-100px";
-  star.style.opacity = 1;
-
-  document.body.appendChild(star);
-
-  // velocidad aleatoria
-  const duration = Math.random()*0.8 + 0.7; // 0.7 a 1.5s
-  const dx = window.innerWidth + 200;
-  const dy = Math.random()*200 - 100;
-
-  // animación con transform
-  star.style.transition = `transform ${duration}s linear, opacity ${duration}s linear`;
-  setTimeout(()=>{
-    star.style.transform = `translate(${dx}px, ${dy}px)`;
-    star.style.opacity = 0;
-  }, 50);
-
-  // eliminar después de animación
-  setTimeout(()=>star.remove(), duration*1000 + 100);
-}
-
-// función para lanzar varias estrellas al mismo tiempo
-function meteorShower(){
-  const count = 15 + Math.floor(Math.random()*10); // 15-25 estrellas simultáneas
-  for(let i=0;i<count;i++){
-    setTimeout(createShootingStar, i*100);
-  }
-  setTimeout(meteorShower, 4000 + Math.random()*2000);
-}
-
-// iniciar lluvia de estrellas fugaces
-meteorShower();
 </script>
 
 </body>
